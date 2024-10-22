@@ -1,3 +1,4 @@
+[![Release](https://github.com/uyriq/pwsh_repovisibility/actions/workflows/release_gh.yml/badge.svg)](https://github.com/uyriq/pwsh_repovisibility/actions/workflows/release_gh.yml)
 
 # Switch-ReposVisibility.ps1
 
@@ -19,14 +20,16 @@
 ## Usage
 
 The script is supplied as a function, which means that it must be imported in your shell in a convenient way before you can use it
+
 ```Pwsh
-. . \Switch-ReposVisibility.ps1 
+. . \Switch-ReposVisibility.ps1
 # or
 source ./Switch-ReposVisibility.ps1
 ```
-then 
 
-Switch-ReposVisibility <supported parameters> 
+then
+
+Switch-ReposVisibility <supported parameters>
 
 ### Parameters
 
@@ -37,22 +40,28 @@ Switch-ReposVisibility <supported parameters>
 ### Examples
 
 #### Example 1: Default Parameters
+
 ```powershell
-Switch-ReposVisibility 
+Switch-ReposVisibility
 
 ```
+
 This will list all public repositories for the user `uyriq` and allow you to set them to private interactively.
 
 #### Example 2: Custom Parameters
+
 ```powershell
 Switch-ReposVisibility -ghUser "your_github_username" -visibility "PUBLIC"
 ```
+
 This will list all private repositories for the user `your_github_username` and allow you to set them to public interactively.
 
 #### Example 3: Description Pattern
+
 ```powershell
 Switch-ReposVisibility -ghUser "your_github_username" -descpattern "some repeated text in repo description section"
 ```
+
 This will process all repositories for the user `your_github_username` that have "text pattern" in their description or name and toggle their visibility to the specified value in batch mode.
 
 ### Notes
@@ -62,6 +71,3 @@ To change the visibility of a repository, the script uses the GITHUB API with th
 ### License
 
 This project is licensed under the Unlicense. See the [LICENSE.txt](#file:LICENSE.txt-context) file for details.
-
-
-
