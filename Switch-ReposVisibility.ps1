@@ -86,7 +86,12 @@ function Switch-ReposVisibility {
             if ($LASTEXITCODE -eq 0) {
                 # Verify the visibility change
                 $newVisibility = Check-RepoVisibility -repoName $repoName
-                Write-Host "Changed visibility of $repoName to $newVisibility"
+                if ($newVisibility -eq $visibility) {
+                    Write-Host "Changed visibility of $repoName to $newVisibility"
+                }
+                else {
+                    Write-Host "Failed to change visibility of $repoName. Expected: $visibility, Actual: $newVisibility"
+                }
             }
             else {
                 Write-Host "Failed to change visibility of $repoName. Command: $command"
@@ -149,21 +154,17 @@ function Switch-ReposVisibility {
                     if ($curVisibility -ne $newVisibility) {
                         Write-Host "Changed visibility of $repoName to $newVisibility"
                     }
-
                     else {
-                        Write-Host " Result: $result The visibility of $repoName. stays unchanged,  Command: $command"
-                        return
+                        Write-Host "Result: $result The visibility of $repoName stays unchanged. Command: $command"
                     }
-                    Write-Host "Changed visibility of $repoName to $newVisibility"
                 }
                 else {
                     Write-Host "Failed to change visibility of $repoName. Command: $command"
                 }
             }
             else {
-                Write-Host "Invalid _ selection: $index"
+                Write-Host "Invalid selection: $index"
             }
         }
     }
 }
-

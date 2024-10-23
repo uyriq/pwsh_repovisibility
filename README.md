@@ -8,7 +8,7 @@
 1. **Overview**: Provides a brief description of the script and its functionality.
 2. **Prerequisites**: Lists the prerequisites for running the script, including the GitHub CLI.
 3. **Usage**: Provides examples of how to use the script with different parameters.
-4. **Notes**: Includes additional information about the script, such as the file name, author, and prerequisites.
+4. **Notes**: Includes additional considerations on why toggling visibility may not work in some cases.
 5. **License**: Mentions the license under which the project is distributed.
 
 ## Overview
