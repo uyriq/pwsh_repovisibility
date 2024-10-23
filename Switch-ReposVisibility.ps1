@@ -42,10 +42,34 @@ function Switch-ReposVisibility {
         [string]$descpattern = $null
     )
     
-    Write-Host "Switching visibility for user: $ghUser to $visibility"
+   
 
     # Set output encoding to UTF-8
     [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+
+    # Check GitHub CLI authentication status
+    $authStatus = Invoke-Expression "gh auth status --active 2>&1"
+    
+    $loggedInUser = $authStatus | Select-String -Pattern "Logged in to github.com account (\w+)" | ForEach-Object {
+        if ($_ -match "Logged in to github.com account (\w+)") {
+            $matches[1]
+        }
+    }
+
+    if ($loggedInUser) {
+        Write-Host "GitHub CLI authentication successful. Logged in as: $loggedInUser"
+        if ($loggedInUser -ne $ghUser) {
+            Write-Host "Warning: The logged-in user ($loggedInUser) does not match the provided user ($ghUser)."
+            return
+        }
+    }
+    else {
+        Write-Host "GitHub CLI authentication failed. Please log in using 'gh auth login'."
+        return
+    }
+
+    # begin work
+    Write-Host "Switching visibility for user: $ghUser to $visibility"
 
     # Get list of repos
     $reposJson = Invoke-Expression "gh repo list $ghUser --json name,visibility,description"
@@ -82,19 +106,27 @@ function Switch-ReposVisibility {
             $repoName = $repo.name
             $command = "gh repo edit $ghUser/$repoName --visibility $visibility"
             Write-Host "Executing: $command"
-            $result = Invoke-Expression $command
-            if ($LASTEXITCODE -eq 0) {
-                # Verify the visibility change
-                $newVisibility = Check-RepoVisibility -repoName $repoName
-                if ($newVisibility -eq $visibility) {
-                    Write-Host "Changed visibility of $repoName to $newVisibility"
+            try {
+                $result = Invoke-Expression $command
+                Write-Host "Command result: $result"
+                if ($LASTEXITCODE -eq 0) {
+                    # Verify the visibility change
+                    $newVisibility = Check-RepoVisibility -repoName $repoName
+                    Write-Host "Expected visibility: $visibility, Actual visibility: $newVisibility"
+                    if ($newVisibility -eq $visibility) {
+                        Write-Host "Changed visibility of $repoName to $newVisibility"
+                    }
+                    else {
+                        Write-Host "Failed to change visibility of $repoName. Expected: $visibility, Actual: $newVisibility"
+                    }
                 }
                 else {
-                    Write-Host "Failed to change visibility of $repoName. Expected: $visibility, Actual: $newVisibility"
+                    Write-Host "Failed to change visibility of $repoName. Command: $command"
                 }
             }
-            else {
-                Write-Host "Failed to change visibility of $repoName. Command: $command"
+            catch {
+                Write-Host "Error executing command: $command"
+                Write-Host "Error details: $_"
             }
         }
         # Exit the function
@@ -147,19 +179,27 @@ function Switch-ReposVisibility {
                 $curVisibility = Check-RepoVisibility -repoName $repoName
                 $command = "gh repo edit $ghUser/$repoName --visibility $visibility"
                 Write-Host "Executing: $command"
-                $result = Invoke-Expression $command
-                if ($LASTEXITCODE -eq 0) {
-                    # Verify the visibility change
-                    $newVisibility = Check-RepoVisibility -repoName $repoName
-                    if ($curVisibility -ne $newVisibility) {
-                        Write-Host "Changed visibility of $repoName to $newVisibility"
+                try {
+                    $result = Invoke-Expression $command
+                    Write-Host "Command result: $result"
+                    if ($LASTEXITCODE -eq 0) {
+                        # Verify the visibility change
+                        $newVisibility = Check-RepoVisibility -repoName $repoName
+                        Write-Host "Expected visibility: $visibility, Actual visibility: $newVisibility"
+                        if ($curVisibility -ne $newVisibility) {
+                            Write-Host "Changed visibility of $repoName to $newVisibility"
+                        }
+                        else {
+                            Write-Host "Result: $result The visibility of $repoName stays unchanged. Command: $command"
+                        }
                     }
                     else {
-                        Write-Host "Result: $result The visibility of $repoName stays unchanged. Command: $command"
+                        Write-Host "Failed to change visibility of $repoName. Command: $command"
                     }
                 }
-                else {
-                    Write-Host "Failed to change visibility of $repoName. Command: $command"
+                catch {
+                    Write-Host "Error executing command: $command"
+                    Write-Host "Error details: $_"
                 }
             }
             else {
