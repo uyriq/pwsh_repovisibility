@@ -42,6 +42,8 @@ function Switch-ReposVisibility {
         [string]$descpattern = $null
     )
     
+    Write-Host "Switching visibility for user: $ghUser to $visibility"
+
     # Set output encoding to UTF-8
     [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
 
@@ -126,10 +128,10 @@ function Switch-ReposVisibility {
                 $selectedNumbersArray += [int]$_.Trim()
             }
             else {
-                Write-Host "Invalid selection: $_"
+                Write-Host "Invalid selection is: $_"
             }
         }
-
+ 
         # Change visibility of selected repos
         $selectedNumbersArray | ForEach-Object {
             $index = $_
@@ -159,7 +161,7 @@ function Switch-ReposVisibility {
                 }
             }
             else {
-                Write-Host "Invalid selection: $index"
+                Write-Host "Invalid _ selection: $index"
             }
         }
     }
