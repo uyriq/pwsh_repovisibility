@@ -5,12 +5,6 @@
 
 # Switch-ReposVisibility.ps1
 
-1. **Overview**: Provides a brief description of the script and its functionality.
-2. **Prerequisites**: Lists the prerequisites for running the script, including the GitHub CLI.
-3. **Usage**: Provides examples of how to use the script with different parameters.
-4. **Notes**: Includes additional considerations on why toggling visibility may not work in some cases.
-5. **License**: Mentions the license under which the project is distributed.
-
 ## Overview
 
 `Switch-ReposVisibility.ps1` is a PowerShell script that lists all repositories of a given GitHub user using the GitHub CLI and allows toggling their visibility between public and private. The script can be run interactively or in batch mode by providing a pattern to match repository descriptions or names.
