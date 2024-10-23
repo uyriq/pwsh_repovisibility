@@ -1,7 +1,7 @@
 [![Release](https://github.com/uyriq/pwsh_repovisibility/actions/workflows/release_gh.yml/badge.svg)](https://github.com/uyriq/pwsh_repovisibility/actions/workflows/release_gh.yml)
 [![Pester](https://github.com/uyriq/pwsh_repovisibility/actions/workflows/pester.yml/badge.svg)](https://github.com/uyriq/pwsh_repovisibility/actions/workflows/pester.yml)
 [![License: Unlicense](https://img.shields.io/badge/License-Unlicense-blue.svg)](https://unlicense.org/)
-[![GitHub release](https://img.shields.io/github/release/uyriq/pwsh_repovisibility.svg)](https://https://github.com/uyriq/pwsh_repovisibility/releases/)
+[![GitHub release](https://img.shields.io/github/release/uyriq/pwsh_repovisibility.svg)](https://github.com/uyriq/pwsh_repovisibility/releases/latest)
 
 # Switch-ReposVisibility.ps1
 
