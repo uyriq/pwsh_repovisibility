@@ -1,5 +1,8 @@
 Describe 'Switch-ReposVisibility' {
   BeforeAll {
+    # Set output encoding to UTF-8
+    [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+
     # Mock the GitHub CLI commands
 
     # Mock for getting the list of repos
