@@ -1,6 +1,7 @@
-[![Release](https://github.com/uyriq/pwsh_repovisibility/actions/workflows/release_gh.yml/badge.svg)](https://github.com/uyriq/pwsh_repovisibility/actions/workflows/release_gh.yml)
-[![Pester](https://github.com/uyriq/pwsh_repovisibility/actions/workflows/pester.yml/badge.svg)](https://github.com/uyriq/pwsh_repovisibility/actions/workflows/pester.yml)
+[![Pester pwsh core](https://github.com/uyriq/pwsh_repovisibility/actions/workflows/pester-pwsh.yml/badge.svg)](https://github.com/uyriq/pwsh_repovisibility/actions/workflows/pester-pwsh.yml)
+[![Pester WindowsPowershell](https://github.com/uyriq/pwsh_repovisibility/actions/workflows/pester-win.yml/badge.svg)](https://github.com/uyriq/pwsh_repovisibility/actions/workflows/pester-win.yml)
 [![License: Unlicense](https://img.shields.io/badge/License-Unlicense-blue.svg)](https://unlicense.org/)
+[![Release](https://github.com/uyriq/pwsh_repovisibility/actions/workflows/release_gh.yml/badge.svg)](https://github.com/uyriq/pwsh_repovisibility/actions/workflows/release_gh.yml)
 [![GitHub release](https://img.shields.io/github/release/uyriq/pwsh_repovisibility.svg)](https://github.com/uyriq/pwsh_repovisibility/releases/latest)
 
 # Switch-ReposVisibility.ps1

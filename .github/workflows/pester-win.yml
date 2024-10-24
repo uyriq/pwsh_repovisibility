@@ -9,10 +9,13 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v3
+      - name: Set UTF-8 Encoding
+        run: chcp 65001
+        shell: cmd
       - name: Run Pester tests (PowerShell Windows)
         run: |
           Write-Host "PowerShell Version: $($PSVersionTable.PSVersion.Major).$($PSVersionTable.PSRemotingProtocolVersion.Minor)"
-          [Console]::OutputEncoding = [System.Text.Encoding]::UTF8 # bad support in 5.3
+          [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
           Set-PSRepository PSGallery -InstallationPolicy Trusted
           Install-Module -Name Pester -Confirm:$false -Force -SkipPublisherCheck -MinimumVersion 5.4.1
           Invoke-Pester -Path "tests" -Passthru
