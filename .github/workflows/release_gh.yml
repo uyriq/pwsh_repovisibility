@@ -23,21 +23,25 @@ jobs:
         run: |
           PREV_TAG=$(git tag --sort=-creatordate | sed -n 2p)
           echo "Previous tag: $PREV_TAG"
-          echo "::set-output name=tag::$PREV_TAG"
+          echo "PREV_TAG=$PREV_TAG" >> $GITHUB_ENV
         shell: bash
 
       - name: Generate release notes
         id: release-notes
         run: |
-          PREV_TAG=${{ steps.prev-tag.outputs.tag }}
+          PREV_TAG=${{ env.PREV_TAG }}
           echo "Previous tag: $PREV_TAG"
+          if [ -z "$PREV_TAG" ]; then
+            echo "No previous tag found. Exiting."
+            exit 1
+          fi
           git log --oneline $PREV_TAG..HEAD > release_notes.md
         shell: bash
 
       - name: Create Release
         uses: actions/create-release@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
         with:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
