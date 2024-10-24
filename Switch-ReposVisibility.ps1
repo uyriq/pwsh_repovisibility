@@ -38,7 +38,7 @@
 function Switch-ReposVisibility {
     param (
         [string]$ghUser = "uyriq",
-        [string]$visibility = "PRIVATE",
+        [string]$visibility = "private",
         [string]$descpattern = $null
     )
     

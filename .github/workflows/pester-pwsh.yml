@@ -1,0 +1,21 @@
+name: "Pester pwsh core"
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  test-pwsh:
+    strategy:
+      matrix:
+        platform: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run Pester tests (pwsh)
+        run: |
+          Write-Host "PowerShell Version: $($PSVersionTable.PSVersion.Major).$($PSVersionTable.PSVersion.Minor)"
+          Set-PSRepository PSGallery -InstallationPolicy Trusted
+          Install-Module -Name Pester -Confirm:$false -Force -SkipPublisherCheck -MinimumVersion 5.4.1
+          Invoke-Pester -Path "tests" -Passthru
+        shell: pwsh

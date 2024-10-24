@@ -54,6 +54,18 @@ Describe 'Switch-ReposVisibility' {
       return "✓ Edited repository $ghUser/$repoName"
     }
 
+    # Mock for GitHub CLI authentication status
+    Mock -CommandName 'gh' -ParameterFilter { $args -contains 'auth' -and $args -contains 'status' } -MockWith {
+      return @'
+github.com
+  ✓ Logged in to github.com account testuser (keyring)
+  - Active account: true
+  - Git operations protocol: ssh
+  - Token: gho_************************************
+  - Token scopes: ''admin:public_key'', ''gist'', ''project'', ''read:org'', ''repo''
+'@
+    }
+
     # Mock user input for Read-Host to return a valid selection
     Mock -CommandName 'Read-Host' -MockWith { '0,1' }
   }
@@ -61,7 +73,7 @@ Describe 'Switch-ReposVisibility' {
   It 'Should change the visibility of selected repos' {
     # Arrange
     $ghUser = "testuser"
-    $visibility = "PRIVATE"
+    $visibility = "private"
     $descpattern = $null
 
     # Act

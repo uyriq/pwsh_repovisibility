@@ -31,7 +31,7 @@ Switch-ReposVisibility <supported parameters>
 ### Parameters
 
 - `ghUser`: The GitHub username whose repositories will be listed. Default is `"uyriq"`, you need to change this.
-- `visibility`: The visibility to set for the repositories. Default is `"PRIVATE"`. This will list all public repos and allow you to set them to private.
+- `visibility`: The visibility to set for the repositories. Default is `"private"`. This will list all public repos and allow you to set them to private.
 - `descpattern`: A pattern to partially match with the description or repository name. If provided, only repositories matching this pattern will be processed in batch non-interactive mode.
 
 ### Examples
@@ -48,7 +48,7 @@ This will list all public repositories for the user `uyriq` and allow you to set
 #### Example 2: Custom Parameters
 
 ```powershell
-Switch-ReposVisibility -ghUser "your_github_username" -visibility "PUBLIC"
+Switch-ReposVisibility -ghUser "your_github_username" -visibility public
 ```
 
 This will list all private repositories for the user `your_github_username` and allow you to set them to public interactively.
